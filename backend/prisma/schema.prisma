@@ -7,11 +7,12 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Producto {
-  id          Int      @id @default(autoincrement())
-  nombre      String
-  precio      Float
-  categoria   String
-  stock       Int
-  createdAt   DateTime @default(now())
+model producto {
+  id        Int      @id @default(autoincrement())
+  nombre    String
+  precio    Float
+  stock     Int
+  categoria String
+  createdAt DateTime @default(now())
+  imagen    String?  @db.VarChar(500)
 }

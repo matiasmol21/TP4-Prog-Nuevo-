@@ -1,4 +1,5 @@
 import "./style.css";
+
 fetch("http://localhost:3000/productos")
   .then((res) => res.json())
   .then((data) => {
@@ -11,8 +12,17 @@ fetch("http://localhost:3000/productos")
         .map(
           (producto) => `
             <div>
+
+              <img
+                src="${producto.imagen}"
+                alt="${producto.nombre}"
+                width="200"
+              />
+
               <h2>${producto.nombre}</h2>
+
               <p>$${producto.precio}</p>
+
             </div>
           `
         )
