@@ -11,8 +11,8 @@ const obtenerProductos = async (req, res) => {
         res.json(productos);
 
     } catch (error) {
-       console.log(error.message);
-       console.log(error);
+        console.log(error.message);
+        console.log(error);
 
         res.status(500).json({
             error: "Error al obtener productos"
@@ -89,20 +89,16 @@ const actualizarProducto = async (req, res) => {
 
     const { id } = req.params;
 
-    const { nombre, precio, categoria, stock } = req.body;
-
     try {
 
         const producto = await prisma.producto.update({
+
             where: {
                 id: Number(id)
             },
-            data: {
-                nombre,
-                precio,
-                categoria,
-                stock
-            }
+
+            data: req.body
+
         });
 
         res.json(producto);

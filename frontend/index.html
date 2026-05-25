@@ -1,42 +1,73 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="es">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Productos Gamer</title>
+    <link rel="stylesheet" href="/src/style.css" />
+    <meta name="description" content="Tienda de periféricos gamers y más" />
+    <link rel="icon" href="./src/assets/favicon.ico" />
+  </head>
+    <!--- HEADER -->
+    <header class="header">
+      <div class="logo"><h1>GamerStore</h1></div>
+      <nav>
+        <a href="#">Inicio</a>
+        <a href="#">Productos</a>
+        <a href="#">Contacto</a>
+      </nav>
+    </header>
+    <!--- FIN HEADER -->
+    <!--- MAIN -->
+    <main>
+      <!--- HERO -->  
+      <section class="hero">
+        <div class="hero-content">
+          <h2>Los mejores periféricos gamers</h2>
+          <p>Mouse, teclados, auriculares y componentes premium.</p>
+          <button id="mostrarProductos">Ver productos</button>
+        </div>
+      </section>
+      <!--- FIN HERO -->
+      <!--- FORMULARIOS -->
+      <section class="contenedor-formularios">
+        <div class="form-card">
+          <h2>Agregar producto</h2>
+          <form id="formAgregar">
+            <input type="text" id="nombre" placeholder="Nombre" />
+            <input type="number" id="precio" placeholder="Precio" />
+            <input type="number" id="stock" placeholder="Stock" />
+            <input type="text" id="categoria" placeholder="Categoría" />
+            <input type="text" id="imagen" placeholder="URL imagen" />
+            <button type="submit">Agregar producto</button>
+          </form>
+        </div>
+        <div class="form-card">
+          <h2>Actualizar producto</h2>
+        <form id="formActualizar">
+          <input type="number" id="idActualizar" placeholder="ID">
+          <input type="text" id="nombreActualizar" placeholder="Nombre">
+          <input type="number" id="precioActualizar" placeholder="Precio">
+          <input type="number" id="stockActualizar" placeholder="Stock">
+          <button type="submit">Actualizar</button>
+          <button type="button" id="vender">Vender</button>
+        </form>
+        </div>
+      </section>
+      <!--- FIN FORMULARIOS -->
+      <!--- LISTA DE PRODUCTOS -->
+      <h2 class="titulo-productos">Nuestros productos</h2>
 
-  <title>Productos Gamers</title>
+      <div id="listaProductos" class="productos-container"></div>
+    </main>
 
-  <link rel="stylesheet" href="/src/style.css" />
-</head>
-<body>
-
-  <header class="header">
-    <h1>🎮 Productos Gamers</h1>
-
-    <nav>
-      <a href="#">Inicio</a>
-      <a href="#">Productos</a>
-      <a href="#">Contacto</a>
-    </nav>
-  </header>
-
-  <main>
-
-    <section class="hero">
-      <h2>Los mejores periféricos gamers</h2>
-
-      <p>
-        Mouse, teclados, auriculares y más.
-      </p>
-    </section>
-
-    <section id="app" class="productos-container">
-      <!-- Los productos se cargan desde JS -->
-    </section>
-
-  </main>
-
-  <script type="module" src="/src/main.js"></script>
-
-</body>
+    <!--- FIN MAIN -->
+    <!--- FOOTER -->
+    <footer>
+      <p>© 2026 GamerStore</p>
+    </footer>
+    <!--- FIN FOOTER -->
+    <!--- SCRIPTS -->
+    <script type="module" src="/src/main.js"></script>
+  </body>
 </html>

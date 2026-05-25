@@ -1,144 +1,177 @@
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Arial,sans-serif;
 }
 
-body {
-  background-color: #0f0f0f;
-  color: white;
-  font-family: Arial, Helvetica, sans-serif;
+body{
+background:#090909;
+color:white;
 }
 
-/* HEADER */
-
-.header {
-  background-color: #161616;
-  padding: 20px 40px;
-
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-
-  border-bottom: 2px solid #2c2c2c;
+.header{
+padding:20px 50px;
+display:flex;
+justify-content:space-between;
+align-items:center;
+background:#111;
+border-bottom:1px solid #222;
 }
 
-.header h1 {
-  color: #00bfff;
+.logo h1{
+color:#a7e34d;
 }
 
-.header nav {
-  display: flex;
-  gap: 20px;
+nav{
+display:flex;
+gap:25px;
 }
 
-.header nav a {
-  color: white;
-  text-decoration: none;
-  transition: 0.3s;
+nav a{
+color:white;
+text-decoration:none;
+transition:.3s;
 }
 
-.header nav a:hover {
-  color: #00bfff;
+nav a:hover{
+color:#ffb733;
 }
 
-/* HERO */
-
-.hero {
-  text-align: center;
-  padding: 60px 20px;
+.hero{
+height:70vh;
+display:flex;
+justify-content:center;
+align-items:center;
+text-align:center;
+background:linear-gradient(rgba(0,0,0,.7),rgba(0,0,0,.8)),url("https://pbs.twimg.com/media/HAPbRO_WwAA70TC.jpg") no-repeat;
+background-size:cover;
+background-position:center;
 }
 
-.hero h2 {
-  font-size: 40px;
-  margin-bottom: 15px;
+.hero h2{
+font-size:50px;
+margin-bottom:20px;
+color:#a7e34d;
 }
 
-.hero p {
-  color: #bbbbbb;
-  font-size: 18px;
+.hero p{
+margin-bottom:20px;
+color:#ccc;
 }
 
-/* PRODUCTOS */
-
-.productos-container {
-  padding: 40px;
-
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-
-  gap: 25px;
+.hero button{
+padding:14px 30px;
+border:none;
+border-radius:30px;
+background:linear-gradient(45deg,#ffb733,#ff7b2c);
+color:white;
+cursor:pointer;
+font-weight:bold;
 }
 
-.card {
-  background-color: #1b1b1b;
-
-  padding: 20px;
-
-  border-radius: 15px;
-
-  transition: 0.3s;
-
-  border: 1px solid #2f2f2f;
+.contenedor-formularios{
+padding:60px;
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
+gap:30px;
 }
 
-.card:hover {
-  transform: translateY(-5px);
-
-  border-color: #00bfff;
+.form-card{
+background:#141414;
+padding:25px;
+border-radius:20px;
+box-shadow:0 0 15px rgba(167,227,77,.2);
 }
 
-.card h2 {
-  margin-bottom: 10px;
-  color: #00bfff;
+.form-card h2{
+margin-bottom:20px;
+color:#a7e34d;
 }
 
-.card p {
-  margin-bottom: 8px;
+form{
+display:flex;
+flex-direction:column;
+gap:15px;
 }
 
-.precio {
-  color: #00ff99;
-  font-size: 20px;
-  font-weight: bold;
+input{
+padding:14px;
+border:none;
+border-radius:10px;
+background:#1e1e1e;
+color:white;
 }
 
-/* BOTON */
-
-.boton {
-  margin-top: 15px;
-
-  width: 100%;
-
-  padding: 12px;
-
-  border: none;
-
-  border-radius: 10px;
-
-  background-color: #00bfff;
-
-  color: white;
-
-  font-weight: bold;
-
-  cursor: pointer;
-
-  transition: 0.3s;
+input:focus{
+outline:2px solid #a7e34d;
 }
 
-.boton:hover {
-  background-color: #0099cc;
+button{
+padding:14px;
+border:none;
+border-radius:10px;
+background:linear-gradient(45deg,#ffb733,#ff7b2c);
+color:white;
+cursor:pointer;
+font-weight:bold;
 }
 
-/* FOOTER */
-
-footer {
-  text-align: center;
-
-  padding: 30px;
-
-  border-top: 1px solid #2f2f2f;
-
-  color: #999;
+.productos-container{
+padding:50px;
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+gap:25px;
 }
+
+.card{
+background:#141414;
+border-radius:20px;
+overflow:hidden;
+transition:.3s;
+}
+
+.card:hover{
+transform:translateY(-10px);
+box-shadow:0 0 20px rgba(255,183,51,.3);
+}
+
+.card img{
+width:100%;
+height:220px;
+object-fit:cover;
+}
+
+.card-body{
+padding:20px;
+}
+
+.card h3{
+color:#a7e34d;
+margin-bottom:10px;
+}
+
+.card p{
+margin-bottom:8px;
+color:#ddd;
+}
+
+.precio{
+color:#ffb733;
+font-size:22px;
+font-weight:bold;
+}
+
+footer{
+padding:30px;
+text-align:center;
+border-top:1px solid #222;
+color:#777;
+}
+
+.titulo-productos{
+text-align:center;
+color:#a7e34d;
+margin-bottom:30px;
+}
+
