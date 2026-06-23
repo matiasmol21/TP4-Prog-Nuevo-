@@ -1,0 +1,177 @@
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Arial,sans-serif;
+}
+
+body{
+background:#090909;
+color:white;
+}
+
+.header{
+padding:20px 50px;
+display:flex;
+justify-content:space-between;
+align-items:center;
+background:#111;
+border-bottom:1px solid #222;
+}
+
+.logo h1{
+color:#a7e34d;
+}
+
+nav{
+display:flex;
+gap:25px;
+}
+
+nav a{
+color:white;
+text-decoration:none;
+transition:.3s;
+}
+
+nav a:hover{
+color:#ffb733;
+}
+
+.hero{
+height:70vh;
+display:flex;
+justify-content:center;
+align-items:center;
+text-align:center;
+background:linear-gradient(rgba(0,0,0,.7),rgba(0,0,0,.8)),url("https://pbs.twimg.com/media/HAPbRO_WwAA70TC.jpg") no-repeat;
+background-size:cover;
+background-position:center;
+}
+
+.hero h2{
+font-size:50px;
+margin-bottom:20px;
+color:#a7e34d;
+}
+
+.hero p{
+margin-bottom:20px;
+color:#ccc;
+}
+
+.hero button{
+padding:14px 30px;
+border:none;
+border-radius:30px;
+background:linear-gradient(45deg,#ffb733,#ff7b2c);
+color:white;
+cursor:pointer;
+font-weight:bold;
+}
+
+.contenedor-formularios{
+padding:60px;
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
+gap:30px;
+}
+
+.form-card{
+background:#141414;
+padding:25px;
+border-radius:20px;
+box-shadow:0 0 15px rgba(167,227,77,.2);
+}
+
+.form-card h2{
+margin-bottom:20px;
+color:#a7e34d;
+}
+
+form{
+display:flex;
+flex-direction:column;
+gap:15px;
+}
+
+input{
+padding:14px;
+border:none;
+border-radius:10px;
+background:#1e1e1e;
+color:white;
+}
+
+input:focus{
+outline:2px solid #a7e34d;
+}
+
+button{
+padding:14px;
+border:none;
+border-radius:10px;
+background:linear-gradient(45deg,#ffb733,#ff7b2c);
+color:white;
+cursor:pointer;
+font-weight:bold;
+}
+
+.productos-container{
+padding:50px;
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+gap:25px;
+}
+
+.card{
+background:#141414;
+border-radius:20px;
+overflow:hidden;
+transition:.3s;
+}
+
+.card:hover{
+transform:translateY(-10px);
+box-shadow:0 0 20px rgba(255,183,51,.3);
+}
+
+.card img{
+width:100%;
+height:220px;
+object-fit:cover;
+}
+
+.card-body{
+padding:20px;
+}
+
+.card h3{
+color:#a7e34d;
+margin-bottom:10px;
+}
+
+.card p{
+margin-bottom:8px;
+color:#ddd;
+}
+
+.precio{
+color:#ffb733;
+font-size:22px;
+font-weight:bold;
+}
+
+footer{
+padding:30px;
+text-align:center;
+border-top:1px solid #222;
+color:#777;
+}
+
+.titulo-productos{
+text-align:center;
+color:#a7e34d;
+margin-bottom:30px;
+}
+
