@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Inicio | GamerStore</title>
+    <link rel="stylesheet" href="/src/style.css" />
+    <meta name="description" content="Tienda de periféricos gamers y más" />
+    <link rel="icon" href="./src/assets/favicon.ico" />
+  </head>
+  <body>
+    <!-- HEADER -->
+    <header class="header">
+
+      <div class="logo">
+        <h1>GamerStore</h1>
+      </div>
+
+      <nav class="nav">
+        <a href="#inicio">Inicio</a>
+        <a href="#productos">Productos</a>
+        <a href="#contacto">Contacto</a>
+      </nav>
+
+      <!-- LOGIN ICON -->
+      <div class="login-icon">
+        <a href="/login.html" title="Login">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="var(--c1)" viewBox="0 0 24 24">
+            <path d="M12 12c2.7 0 5-2.3 5-5s-2.3-5-5-5-5 2.3-5 5 2.3 5 5 5zm0 2c-4 0-8 2-8 6v2h16v-2c0-4-4-6-8-6z"/>
+          </svg>
+        </a>
+      </div>
+
+    </header>
+
+    <!-- MAIN -->
+    <main>
+
+      <!-- HERO -->
+      <section class="hero" id="inicio">
+        <div class="hero-content">
+          <h2>Subí de nivel tu juego</h2>
+          <p>Equipate para ganar. Rendimiento, potencia y estilo para llevar tu juego al siguiente nivel.</p>
+          <button id="mostrarProductos">Ver productos</button>
+        </div>
+      </section>
+
+      <!-- FORMULARIOS CRUD -->
+      <section class="contenedor-formularios">
+
+        <div class="form-card">
+          <h2>Agregar producto</h2>
+          <form id="formAgregar">
+            <input type="text" id="nombre" placeholder="Nombre" />
+            <input type="number" id="precio" placeholder="Precio" />
+            <input type="number" id="stock" placeholder="Stock" />
+            <select id="categoria">
+              <option value="1">Mouse</option>
+              <option value="2">Teclado</option>
+              <option value="3">Auriculares</option>
+            </select>
+            <input type="text" id="imagen" placeholder="URL imagen" />
+            <button type="submit">Agregar producto</button>
+          </form>
+        </div>
+
+        <div class="form-card">
+          <h2>Actualizar producto</h2>
+          <form id="formActualizar">
+            <input type="number" id="idActualizar" placeholder="ID">
+            <input type="text" id="nombreActualizar" placeholder="Nombre">
+            <input type="number" id="precioActualizar" placeholder="Precio">
+            <input type="number" id="stockActualizar" placeholder="Stock">
+
+            <button type="submit">Actualizar</button>
+            <button type="button" id="vender">Vender</button>
+          </form>
+        </div>
+
+      </section>
+
+      <!-- PRODUCTOS -->
+      <section id="productos">
+        <h2 class="titulo-productos">Nuestros productos</h2>
+
+        <div id="listaProductos" class="productos-container"></div>
+      </section>
+
+      <!-- CONTACTO -->
+      <section id="contacto" class="contacto-section">
+
+        <h2 class="titulo-productos">Contacto</h2>
+
+        <div class="contacto-box">
+
+          <form id="formContacto">
+
+            <input type="text" placeholder="Nombre" />
+            <input type="email" placeholder="Email" />
+            <textarea placeholder="Mensaje"></textarea>
+
+            <button type="submit">Enviar mensaje</button>
+
+          </form>
+        </div>
+      </section>
+    </main>
+
+    <!-- FOOTER -->
+    <footer>
+      <p>© 2026 GamerStore</p>
+    </footer>
+    <!-- TOAST -->
+    <div id="toast"></div>
+    <!-- JS -->
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>
