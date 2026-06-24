@@ -114,7 +114,7 @@ SESSION_SECRET=mi_secreto_tp
 
 ---
 
-## 👨‍💻 Autor
+## 👨‍💻 Autores
 
 Facundo Murillo
 Matias Molina
