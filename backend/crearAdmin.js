@@ -4,21 +4,28 @@ const bcrypt = require("bcrypt");
 const prisma = new PrismaClient();
 
 async function main() {
+  const hash = await bcrypt.hash("1234", 10);
 
-    const hash = await bcrypt.hash("1234",10);
+  await prisma.user.upsert({
+    where: {
+      usuario: "admin",
+    },
+    update: {
+      password: hash,
+    },
+    create: {
+      usuario: "admin",
+      password: hash,
+    },
+  });
 
-    await prisma.usuario.create({
-
-        data:{
-            usuario:"admin",
-            password:hash
-        }
-
-    });
-
-    console.log("Administrador creado");
-
+  console.log("Administrador creado o actualizado");
 }
 
 main()
-.finally(()=>prisma.$disconnect());
+  .catch((e) => {
+    console.error(e);
+  })
+  .finally(async () => {
+    await prisma.$disconnect();
+  });

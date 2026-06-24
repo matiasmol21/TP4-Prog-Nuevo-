@@ -1,163 +1,162 @@
 const prisma = require("../prisma/client");
 
-// GET TODOS
+/* =========================
+   GET TODOS
+========================= */
 const obtenerProductos = async (req, res) => {
-    try {
+  try {
+    const productos = await prisma.product.findMany({
+      include: {
+        category: true,
+      },
+    });
 
-        const productos = await prisma.product.findMany({
-            include: {
-                category: true
-            }
-        });
-
-        res.json(productos);
-
-    } catch (error) {
-
-        console.log(error);
-
-        res.status(500).json({
-            error: "Error al obtener productos"
-        });
-
-    }
+    res.json(productos);
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ error: "Error al obtener productos" });
+  }
 };
 
-// GET POR ID
+/* =========================
+   GET POR ID
+========================= */
 const obtenerProducto = async (req, res) => {
+  const { id } = req.params;
 
-    const { id } = req.params;
+  try {
+    const producto = await prisma.product.findUnique({
+      where: { id: Number(id) },
+      include: { category: true },
+    });
 
-    try {
-
-        const producto = await prisma.product.findUnique({
-            where: {
-                id: Number(id)
-            },
-            include: {
-                category: true
-            }
-        });
-
-        if (!producto) {
-            return res.status(404).json({
-                error: "Producto no encontrado"
-            });
-        }
-
-        res.json(producto);
-
-    } catch (error) {
-
-        console.log(error);
-
-        res.status(500).json({
-            error: "Error al buscar producto"
-        });
-
+    if (!producto) {
+      return res.status(404).json({ error: "Producto no encontrado" });
     }
 
+    res.json(producto);
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ error: "Error al buscar producto" });
+  }
 };
 
-// POST
+/* =========================
+   CREATE PRODUCTO
+========================= */
 const crearProducto = async (req, res) => {
+  try {
+    const { nombre, precio, stock, categoryId, imagen } = req.body;
 
-    const { nombre, precio, stock, categoryId } = req.body;
+    const catId = Number(categoryId);
 
-    try {
-
-        const producto = await prisma.product.create({
-            data: {
-                nombre,
-                precio: Number(precio),
-                stock: Number(stock),
-                categoryId: Number(categoryId)
-            }
-        });
-
-        res.status(201).json(producto);
-
-    } catch (error) {
-
-        console.log(error);
-
-        res.status(500).json({
-            error: "Error al crear producto"
-        });
-
+    if (!nombre || isNaN(precio) || isNaN(stock)) {
+      return res.status(400).json({ error: "Datos inválidos" });
     }
 
+    if (isNaN(catId)) {
+      return res.status(400).json({ error: "categoryId inválido" });
+    }
+
+    const producto = await prisma.product.create({
+      data: {
+        nombre,
+        precio: Number(precio),
+        stock: Number(stock),
+        categoryId: catId,
+        imagen,
+      },
+    });
+
+    res.status(201).json(producto);
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ error: "Error al crear producto" });
+  }
 };
 
-// PUT
+/* =========================
+   UPDATE
+========================= */
 const actualizarProducto = async (req, res) => {
+  const { id } = req.params;
 
-    const { id } = req.params;
+  try {
+    const producto = await prisma.product.update({
+      where: { id: Number(id) },
+      data: {
+        ...req.body,
+        categoryId: req.body.categoryId
+          ? Number(req.body.categoryId)
+          : undefined,
+      },
+    });
 
-    try {
-
-        const producto = await prisma.product.update({
-
-            where: {
-                id: Number(id)
-            },
-
-            data: {
-                ...req.body,
-                categoryId: req.body.categoryId
-                    ? Number(req.body.categoryId)
-                    : undefined
-            }
-
-        });
-
-        res.json(producto);
-
-    } catch (error) {
-
-        console.log(error);
-
-        res.status(500).json({
-            error: "Error al actualizar producto"
-        });
-
-    }
-
+    res.json(producto);
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ error: "Error al actualizar producto" });
+  }
 };
 
-// DELETE
+/* =========================
+   DELETE
+========================= */
 const eliminarProducto = async (req, res) => {
+  const { id } = req.params;
 
-    const { id } = req.params;
+  try {
+    await prisma.product.delete({
+      where: { id: Number(id) },
+    });
 
-    try {
+    res.json({ mensaje: "Producto eliminado" });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ error: "Error al eliminar producto" });
+  }
+};
 
-        await prisma.product.delete({
-            where: {
-                id: Number(id)
-            }
-        });
+const venderProducto = async (req, res) => {
+  const { id } = req.params;
 
-        res.json({
-            mensaje: "Producto eliminado"
-        });
+  try {
+    const producto = await prisma.product.findUnique({
+      where: { id: Number(id) }
+    });
 
-    } catch (error) {
-
-        console.log(error);
-
-        res.status(500).json({
-            error: "Error al eliminar producto"
-        });
-
+    if (!producto) {
+      return res.status(404).json({ error: "Producto no encontrado" });
     }
 
+    const nuevoStock = producto.stock - 1;
+
+    if (nuevoStock <= 0) {
+      await prisma.product.delete({
+        where: { id: Number(id) }
+      });
+
+      return res.json({ mensaje: "Producto eliminado por stock 0" });
+    }
+
+    const actualizado = await prisma.product.update({
+      where: { id: Number(id) },
+      data: { stock: nuevoStock }
+    });
+
+    res.json(actualizado);
+
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ error: "Error al vender producto" });
+  }
 };
 
 module.exports = {
-    obtenerProductos,
-    obtenerProducto,
-    crearProducto,
-    actualizarProducto,
-    eliminarProducto
+  obtenerProductos,
+  obtenerProducto,
+  crearProducto,
+  actualizarProducto,
+  eliminarProducto,
+  venderProducto
 };

@@ -1,27 +1,28 @@
-<!DOCTYPE html>
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <link rel="icon" href="./src/assets/favicon.ico" />
+    <title>Login | GamerStore</title>
 
-<html>
+    <link rel="stylesheet" href="/src/style.css" />
+  </head>
 
-<head>
+  <body class="login-page">
 
-<meta charset="UTF-8">
+    <div class="login-container">
 
-<title>Login</title>
+      <h2>Iniciar sesión</h2>
 
-</head>
+      <input id="usuario" placeholder="Usuario" />
+      <input id="password" type="password" placeholder="Contraseña" />
 
-<body>
+      <button onclick="login()">Ingresar</button>
 
-<h2>Iniciar sesión</h2>
+    </div>
 
-<input id="usuario">
-
-<input id="password" type="password">
-
-<button onclick="login()">Ingresar</button>
-
-<script type="module" src="/src/login.js"></script>
-
-</body>
-
+    <script src="/src/login.js"></script>
+    
+  </body>
 </html>

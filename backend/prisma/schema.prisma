@@ -7,51 +7,51 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Category {
-  id     Int    @id @default(autoincrement())
-  nombre String
-
-  products Product[]
+model category {
+  id      Int       @id @default(autoincrement())
+  nombre  String
+  product product[]
 }
 
-model Product {
-  id     Int    @id @default(autoincrement())
-  nombre String
-  precio Float
-  stock  Int
+model order {
+  id        Int         @id @default(autoincrement())
+  fecha     DateTime    @default(now())
+  userId    Int
+  user      user        @relation(fields: [userId], references: [id], map: "Order_userId_fkey")
+  orderitem orderitem[]
 
-  categoryId Int
-  category   Category @relation(fields: [categoryId], references: [id])
-
-  orderItems OrderItem[]
+  @@index([userId], map: "Order_userId_fkey")
 }
 
-model User {
-  id       Int    @id @default(autoincrement())
-  usuario  String @unique
-  password String
-
-  orders Order[]
-}
-
-model Order {
-  id    Int      @id @default(autoincrement())
-  fecha DateTime @default(now())
-
-  userId Int
-  user   User @relation(fields: [userId], references: [id])
-
-  items OrderItem[]
-}
-
-model OrderItem {
-  id Int @id @default(autoincrement())
-
-  cantidad Int
-
-  orderId Int
-  order   Order @relation(fields: [orderId], references: [id])
-
+model orderitem {
+  id        Int     @id @default(autoincrement())
+  cantidad  Int
+  orderId   Int
   productId Int
-  product   Product @relation(fields: [productId], references: [id])
+  order     order   @relation(fields: [orderId], references: [id], map: "OrderItem_orderId_fkey")
+  product   product @relation(fields: [productId], references: [id], map: "OrderItem_productId_fkey")
+
+  @@index([orderId], map: "OrderItem_orderId_fkey")
+  @@index([productId], map: "OrderItem_productId_fkey")
+}
+
+model product {
+  id         Int       @id @default(autoincrement())
+  nombre     String
+  precio     Float
+  stock      Int
+  imagen     String?   @db.VarChar(500)
+  categoryId Int
+
+  category   category  @relation(fields: [categoryId], references: [id], map: "Product_categoryId_fkey")
+  orderitem  orderitem[]
+
+  @@index([categoryId], map: "Product_categoryId_fkey")
+}
+
+model user {
+  id       Int     @id @default(autoincrement())
+  usuario  String  @unique(map: "User_usuario_key")
+  password String
+  order    order[]
 }
