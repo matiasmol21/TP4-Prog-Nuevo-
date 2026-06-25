@@ -1,0 +1,57 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model category {
+  id      Int       @id @default(autoincrement())
+  nombre  String  @unique
+  product product[]
+}
+
+model order {
+  id        Int         @id @default(autoincrement())
+  fecha     DateTime    @default(now())
+  userId    Int
+  user      User        @relation(fields: [userId], references: [id], map: "Order_userId_fkey")
+  orderitem orderitem[]
+
+  @@index([userId], map: "Order_userId_fkey")
+}
+
+model orderitem {
+  id        Int     @id @default(autoincrement())
+  cantidad  Int
+  orderId   Int
+  productId Int
+  order     order   @relation(fields: [orderId], references: [id], map: "OrderItem_orderId_fkey")
+  product   product @relation(fields: [productId], references: [id], map: "OrderItem_productId_fkey")
+
+  @@index([orderId], map: "OrderItem_orderId_fkey")
+  @@index([productId], map: "OrderItem_productId_fkey")
+}
+
+model product {
+  id         Int       @id @default(autoincrement())
+  nombre     String
+  precio     Float
+  stock      Int
+  imagen     String?   @db.VarChar(500)
+  categoryId Int
+
+  category   category  @relation(fields: [categoryId], references: [id], map: "Product_categoryId_fkey")
+  orderitem  orderitem[]
+
+  @@index([categoryId], map: "Product_categoryId_fkey")
+}
+model User {
+  id       Int    @id @default(autoincrement())
+  usuario  String @unique
+  password String
+  rol      String @default("cliente")
+  orders   order[] 
+}

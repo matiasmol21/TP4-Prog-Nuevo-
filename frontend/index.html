@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Inicio | GamerStore</title>
+  <link rel="stylesheet" href="/src/style.css" />
+</head>
+<body>
+  <header class="header">
+    <div class="logo">
+      <h1>GamerStore</h1>
+    </div>
+
+    <nav class="nav">
+      <a href="#inicio">Inicio</a>
+      <a href="#perifericos">Periféricos</a>
+      <a href="#placas">Placas de video</a>
+      <a href="#contacto">Contacto</a>
+    </nav>
+
+    <div id="authBox" class="auth-box"></div>
+  </header>
+
+  <main>
+    <section class="hero" id="inicio">
+      <div class="hero-content">
+        <h2>Subí de nivel tu juego</h2>
+        <p>
+          Equipate para ganar. Rendimiento, potencia y estilo para llevar tu juego al siguiente nivel.
+        </p>
+        <button onclick="document.getElementById('perifericos').scrollIntoView({ behavior: 'smooth' })">
+          Ver productos
+        </button>
+      </div>
+    </section>
+
+    <!-- PERIFERICOS -->
+    <section id="perifericos" class="productos-section">
+      <h2 class="titulo-productos">Periféricos</h2>
+      <div id="listaPerifericos" class="productos-container"></div>
+    </section>
+
+    <!-- PLACAS -->
+    <section id="placas" class="productos-section">
+      <h2 class="titulo-productos">Placas de video</h2>
+      <div id="listaPlacas" class="productos-container"></div>
+    </section>
+
+    <section id="contacto" class="contacto-section">
+      <h2 class="titulo-productos">Contacto</h2>
+      <div class="contacto-box">
+        <form id="formContacto">
+          <input type="text" placeholder="Nombre" />
+          <input type="email" placeholder="Email" />
+          <textarea placeholder="Mensaje"></textarea>
+          <button type="submit">Enviar mensaje</button>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <aside id="carritoPanel" class="cart-panel">
+    <div class="cart-header">
+      <h3>Tu carrito</h3>
+      <button id="cerrarCarrito">✕</button>
+    </div>
+    <div id="carritoItems" class="cart-items"></div>
+    <div class="cart-footer">
+      <p>Total: <strong id="carritoTotal">$0.00</strong></p>
+      <button id="btnComprar">Comprar</button>
+    </div>
+  </aside>
+
+  <footer>
+    <p>© 2026 GamerStore</p>
+  </footer>
+
+  <script type="module" src="/src/main.js"></script>
+</body>
+</html>
