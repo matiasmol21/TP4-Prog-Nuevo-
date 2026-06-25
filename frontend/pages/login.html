@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Login | GameStore</title>
+
+  <link rel="stylesheet" href="../src/style.css">
+</head>
+
+<body class="login-page">
+
+  <div class="login-container">
+
+    <h2 id="title">Login</h2>
+
+    <!-- LOGIN -->
+    <div id="loginForm">
+      <input id="usuario" placeholder="Usuario">
+      <input id="password" type="password" placeholder="Password">
+      <button onclick="login()">Ingresar</button>
+    </div>
+
+    <!-- REGISTER -->
+    <div id="registerForm" style="display:none;">
+      <input id="regUsuario" placeholder="Usuario">
+      <input id="regPassword" type="password" placeholder="Password">
+      <button onclick="register()">Registrarse</button>
+    </div>
+
+    <p style="cursor:pointer; color:#a7ebf2;" onclick="toggle()">
+      ¿No tenés cuenta? Registrate
+    </p>
+
+  </div>
+
+<script src="../src/login.js"></script>
+
+</body>
+</html>

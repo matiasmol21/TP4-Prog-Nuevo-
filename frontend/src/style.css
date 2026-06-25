@@ -115,7 +115,7 @@ body{
   text-align:center;
   background:
     linear-gradient(rgba(1,28,64,0.7), rgba(0,0,0,0.85)),
-    url(./src/assets/hero.webp) center/cover no-repeat;
+    url(../src/assets/hero.webp) center/cover no-repeat;
 }
 
 .hero h2{
@@ -447,4 +447,255 @@ section{
   background: var(--c1);
   color: var(--c5);
   transform: scale(1.05);
+}
+
+/* =========================
+   ADMIN PANEL
+========================= */
+
+.admin-container{
+  padding: 40px 60px;
+}
+
+.admin-title{
+  color: var(--c1);
+  margin-bottom: 20px;
+  font-size: 28px;
+}
+
+/* FORM ADMIN */
+.admin-form{
+  background: var(--card);
+  border: 1px solid rgba(84,172,191,0.2);
+  padding: 25px;
+  border-radius: 20px;
+  backdrop-filter: blur(10px);
+  margin-bottom: 30px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 15px;
+}
+
+.admin-form input{
+  padding: 12px;
+  border-radius: 10px;
+  border: none;
+  background: rgba(1, 28, 64, 0.7);
+  color: var(--text);
+  outline: none;
+}
+
+.admin-form input:focus{
+  outline: 2px solid var(--c2);
+}
+
+/* botón agregar */
+.admin-form button{
+  grid-column: 1 / -1;
+}
+
+/* PRODUCTS ADMIN */
+.admin-products{
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 20px;
+}
+
+/* card admin (usa tu card base pero reforzada) */
+.admin-products .card{
+  position: relative;
+}
+
+/* botones de admin dentro de card */
+.admin-actions{
+  display: flex;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.admin-actions button{
+  flex: 1;
+  padding: 8px;
+  font-size: 12px;
+}
+
+/* delete button */
+.btn-delete{
+  background: #ff3b3b;
+}
+
+.btn-delete:hover{
+  background: #ff1f1f;
+}
+
+/* edit button */
+.btn-edit{
+  background: var(--c2);
+}
+
+.btn-edit:hover{
+  background: var(--c1);
+  color: var(--c5);
+}
+
+/* logout mejorado */
+.logout{
+  background: #ff3b3b;
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: .3s;
+}
+
+.logout:hover{
+  transform: scale(1.05);
+}
+
+/* =========================
+   SUPERADMIN
+========================= */
+
+.superadmin-container{
+  padding: 40px 60px;
+}
+
+.superadmin-title{
+  color: var(--c1);
+  margin-bottom: 25px;
+}
+
+.table-container{
+  background: var(--card);
+  border-radius: 20px;
+  overflow: hidden;
+  border: 1px solid rgba(84,172,191,0.2);
+  backdrop-filter: blur(10px);
+}
+
+table{
+  width: 100%;
+  border-collapse: collapse;
+}
+
+thead{
+  background: rgba(1,28,64,.9);
+}
+
+thead th{
+  padding: 18px;
+  color: var(--c1);
+  text-align: left;
+}
+
+tbody tr{
+  border-top: 1px solid rgba(84,172,191,.15);
+  transition: .3s;
+}
+
+tbody tr:hover{
+  background: rgba(84,172,191,.08);
+}
+
+tbody td{
+  padding: 15px;
+  color: var(--text);
+}
+
+.table-actions{
+  display: flex;
+  gap: 10px;
+}
+
+.btn-save{
+  background: #2e8b57;
+}
+
+.btn-save:hover{
+  background: #3aa56a;
+}
+
+.btn-delete{
+  background: #d62828;
+}
+
+.btn-delete:hover{
+  background: #ff3b3b;
+}
+
+/* =========================
+   PRODUCTOS ADMIN
+========================= */
+
+#listaProductos{
+  padding: 30px 50px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit,minmax(260px,1fr));
+  gap: 25px;
+}
+
+#listaProductos .card{
+  padding-bottom: 15px;
+}
+
+#listaProductos .card h3{
+  margin: 15px;
+}
+
+#listaProductos .card p{
+  margin: 0 15px 10px;
+}
+
+#listaProductos .card button{
+  margin: 10px 15px 0;
+  width: calc(100% - 30px);
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media(max-width:768px){
+
+  .header{
+    padding:20px;
+    flex-direction:column;
+    gap:15px;
+  }
+
+  .nav{
+    flex-wrap:wrap;
+    justify-content:center;
+  }
+
+  .hero h2{
+    font-size:35px;
+  }
+
+  .hero p{
+    padding:0 20px;
+  }
+
+  .contenedor-formularios{
+    padding:20px;
+  }
+
+  .productos-container{
+    padding:20px;
+  }
+
+  .contacto-section{
+    padding:20px;
+  }
+
+  .admin-container,
+  .superadmin-container{
+    padding:20px;
+  }
+
+  table{
+    display:block;
+    overflow-x:auto;
+  }
 }

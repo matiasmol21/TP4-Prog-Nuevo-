@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>SuperAdmin | GameStore</title>
+  <link rel="stylesheet" href="../src/style.css">
+</head>
+<body>
+
+<header class="header">
+  <h1>GameStore SuperAdmin</h1>
+  <button class="logout" onclick="logout()">
+    Cerrar sesión
+  </button>
+</header>
+
+<div class="superadmin-container">
+
+  <h2 class="superadmin-title">
+    Gestión de usuarios
+  </h2>
+
+  <div class="table-container">
+
+    <table>
+
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Usuario</th>
+          <th>Rol</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+
+      <tbody id="tablaUsuarios"></tbody>
+
+    </table>
+
+  </div>
+
+</div>
+
+<script src="../src/superadmin.js"></script>
+
+</body>
+</html>

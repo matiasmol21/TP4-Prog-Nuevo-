@@ -9,7 +9,7 @@ datasource db {
 
 model category {
   id      Int       @id @default(autoincrement())
-  nombre  String
+  nombre  String  @unique
   product product[]
 }
 
@@ -17,7 +17,7 @@ model order {
   id        Int         @id @default(autoincrement())
   fecha     DateTime    @default(now())
   userId    Int
-  user      user        @relation(fields: [userId], references: [id], map: "Order_userId_fkey")
+  user      User        @relation(fields: [userId], references: [id], map: "Order_userId_fkey")
   orderitem orderitem[]
 
   @@index([userId], map: "Order_userId_fkey")
@@ -48,10 +48,10 @@ model product {
 
   @@index([categoryId], map: "Product_categoryId_fkey")
 }
-
-model user {
-  id       Int     @id @default(autoincrement())
-  usuario  String  @unique(map: "User_usuario_key")
+model User {
+  id       Int    @id @default(autoincrement())
+  usuario  String @unique
   password String
-  order    order[]
+  rol      String @default("cliente")
+  orders   order[] 
 }

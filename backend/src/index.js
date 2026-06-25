@@ -5,18 +5,21 @@ const session = require("express-session");
 const productosRoutes = require("./routes/productos.routes");
 const authRoutes = require("./routes/auth.routes");
 const categoryRoutes = require("./routes/category.routes");
+const usersRoutes = require("./routes/users.routes");
+
 
 const app = express();
 
 app.use(express.json());
 
 app.use(
-    cors({
-        origin: "http://localhost:5173", 
-        credentials: true,
-    })
+  cors({
+    origin: "http://localhost:5173", 
+    credentials: true,
+  })
 );
 
+  
 app.use(
   session({
     secret: "mi_secreto_tp",
@@ -34,6 +37,7 @@ app.use(
 app.use("/productos", productosRoutes);
 app.use("/auth", authRoutes);
 app.use("/categories", categoryRoutes);
+app.use("/users", usersRoutes);
 
 const PORT = 3000;
 

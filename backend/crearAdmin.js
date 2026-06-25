@@ -1,31 +1,38 @@
-const { PrismaClient } = require("@prisma/client");
+
 const bcrypt = require("bcrypt");
+const { PrismaClient } = require("@prisma/client");
 
 const prisma = new PrismaClient();
 
-async function main() {
-  const hash = await bcrypt.hash("1234", 10);
+async function crearAdmin() {
+  try {
+    const usuario = "admin";
+    const passwordPlano = "admin123";
 
-  await prisma.user.upsert({
-    where: {
-      usuario: "admin",
-    },
-    update: {
-      password: hash,
-    },
-    create: {
-      usuario: "admin",
-      password: hash,
-    },
-  });
+    // hash de la contraseña
+    const passwordHash = await bcrypt.hash(passwordPlano, 10);
 
-  console.log("Administrador creado o actualizado");
+    // crear o actualizar admin (evita errores de duplicados)
+    const admin = await prisma.user.upsert({
+      where: { usuario },
+      update: {
+        password: passwordHash,
+        rol: "admin"
+      },
+      create: {
+        usuario,
+        password: passwordHash,
+        rol: "admin"
+      }
+    });
+
+    console.log("✔ Admin creado o actualizado:", admin);
+
+  } catch (error) {
+    console.log("❌ Error creando admin:", error);
+  } finally {
+    await prisma.$disconnect();
+  }
 }
 
-main()
-  .catch((e) => {
-    console.error(e);
-  })
-  .finally(async () => {
-    await prisma.$disconnect();
-  });
+crearAdmin();

@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin | GamerStore</title>
+
+  <link rel="stylesheet" href="../src/style.css">
+</head>
+
+<body>
+
+  <!-- HEADER -->
+  <header class="header">
+
+    <div class="logo">
+      <h1>GamerStore Admin</h1>
+    </div>
+
+    <button class="logout" onclick="logout()">
+      Cerrar sesión
+    </button>
+
+  </header>
+
+  <!-- CONTENIDO -->
+  <div class="admin-container">
+
+    <h2 class="admin-title">
+      Administración de Productos
+    </h2>
+
+    <!-- FORMULARIOS -->
+    <section class="contenedor-formularios">
+
+      <!-- AGREGAR -->
+      <div class="form-card">
+
+        <h2>Agregar producto</h2>
+
+        <input type="text" id="nombre" placeholder="Nombre">
+
+        <input type="number" id="precio" placeholder="Precio">
+
+        <input type="number" id="stock" placeholder="Stock">
+
+        <select id="categoria">
+          <option value="1">Mouse</option>
+          <option value="2">Teclado</option>
+          <option value="3">Auriculares</option>
+        </select>
+
+        <input type="text" id="imagen" placeholder="URL Imagen">
+
+        <button onclick="crearProducto()">
+          Agregar Producto
+        </button>
+
+      </div>
+
+      <!-- ACTUALIZAR -->
+      <div class="form-card">
+
+        <h2>Actualizar producto</h2>
+
+        <input type="number" id="idActualizar" placeholder="ID Producto">
+
+        <input type="text" id="nombreActualizar" placeholder="Nombre">
+
+        <input type="number" id="precioActualizar" placeholder="Precio">
+
+        <input type="number" id="stockActualizar" placeholder="Stock">
+
+        <button onclick="actualizarProducto()">
+          Actualizar Producto
+        </button>
+
+      </div>
+
+    </section>
+
+    <!-- PRODUCTOS -->
+    <section>
+
+      <h2 class="titulo-productos">
+        Productos Registrados
+      </h2>
+
+      <div id="listaProductos" class="productos-container">
+
+      </div>
+
+    </section>
+
+  </div>
+
+  <script src="../src/admin.js"></script>
+
+</body>
+</html>

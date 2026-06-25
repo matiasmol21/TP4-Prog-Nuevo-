@@ -1,27 +1,25 @@
-
 const express = require("express");
-
 const router = express.Router();
+
 const auth = require("../middleware/auth");
-const { obtenerProductos, obtenerProducto, crearProducto, actualizarProducto, eliminarProducto, venderProducto} = require("../controllers/productos.controller");
+const { onlyAdmin } = require("../middleware/roles");
 
+const {
+  obtenerProductos,
+  obtenerProducto,
+  crearProducto,
+  actualizarProducto,
+  eliminarProducto,
+  venderProducto
+} = require("../controllers/productos.controller");
 
-// GET TODOS
 router.get("/", obtenerProductos);
-
-// GET POR ID
 router.get("/:id", obtenerProducto);
 
-// POST
-router.post("/", auth, crearProducto);
+router.post("/", auth, onlyAdmin, crearProducto);
+router.put("/:id", auth, onlyAdmin, actualizarProducto);
+router.delete("/:id", auth, onlyAdmin, eliminarProducto);
+router.put("/vender/:id", auth, onlyAdmin, venderProducto);
 
-// PUT
-router.put("/:id", auth, actualizarProducto);
-
-// DELETE
-router.delete("/:id", auth, eliminarProducto);
-
-// VENDER PRODUCTO
-router.put("/vender/:id", auth, venderProducto);
 
 module.exports = router;

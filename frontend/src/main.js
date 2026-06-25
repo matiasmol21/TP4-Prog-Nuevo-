@@ -2,16 +2,31 @@ import "./style.css";
 
 const API = "http://localhost:3000";
 
-// Cargamos los productos al cargar la página
+const user = JSON.parse(localStorage.getItem("user"));
+
+if (!user) {
+  window.location.href = "/login.html";
+}
+
+const isAdmin = user.rol === "admin";
+const isSuperAdmin = user.rol === "superadmin";
+const isCliente = user.rol === "cliente";
+
 document.addEventListener("DOMContentLoaded", () => {
   cargarProductos();
+
+  if (isCliente) {
+    document.getElementById("formAgregar")?.style.display = "none";
+    document.getElementById("formActualizar")?.style.display = "none";
+  }
 });
 
-
-// CARGAR PRODUCTOS
+// =========================
+// CARGAR PRODUCTOS (TODOS)
+// =========================
 async function cargarProductos() {
   try {
-    const res = await fetch(`${API}/productos`, { credentials: "include" });
+    const res = await fetch(`${API}/productos`);
     const data = await res.json();
 
     document.getElementById("listaProductos").innerHTML = data
@@ -30,25 +45,32 @@ async function cargarProductos() {
       )
       .join("");
 
-    document.querySelectorAll(".card").forEach((card, index) => {
-      card.addEventListener("click", () => {
-        const p = data[index];
+    // click para editar (solo admin)
+    if (isAdmin || isSuperAdmin) {
+      document.querySelectorAll(".card").forEach((card, index) => {
+        card.addEventListener("click", () => {
+          const p = data[index];
 
-        document.getElementById("idActualizar").value = p.id;
-        document.getElementById("nombreActualizar").value = p.nombre;
-        document.getElementById("precioActualizar").value = p.precio;
-        document.getElementById("stockActualizar").value = p.stock;
+          document.getElementById("idActualizar").value = p.id;
+          document.getElementById("nombreActualizar").value = p.nombre;
+          document.getElementById("precioActualizar").value = p.precio;
+          document.getElementById("stockActualizar").value = p.stock;
+        });
       });
-    });
+    }
 
   } catch (e) {
     console.log(e);
   }
 }
 
-// AGREGAR PRODUCTO
+// =========================
+// AGREGAR PRODUCTO (ADMIN)
+// =========================
 document.getElementById("formAgregar")?.addEventListener("submit", async (e) => {
   e.preventDefault();
+
+  if (!isAdmin && !isSuperAdmin) return;
 
   const nombre = document.getElementById("nombre").value;
   const precio = document.getElementById("precio").value;
@@ -59,7 +81,6 @@ document.getElementById("formAgregar")?.addEventListener("submit", async (e) => 
   await fetch(`${API}/productos`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    credentials: "include",
     body: JSON.stringify({
       nombre,
       precio: Number(precio),
@@ -72,9 +93,12 @@ document.getElementById("formAgregar")?.addEventListener("submit", async (e) => 
   cargarProductos();
 });
 
-document.getElementById("mostrarProductos")?.addEventListener("click", cargarProductos);
-
+// =========================
+// VENDER (ADMIN)
+// =========================
 document.getElementById("vender")?.addEventListener("click", async () => {
+  if (!isAdmin && !isSuperAdmin) return;
+
   let id = idActualizar.value;
   let stock = Number(stockActualizar.value);
 
@@ -83,24 +107,27 @@ document.getElementById("vender")?.addEventListener("click", async () => {
   await fetch(`${API}/productos/${id}`, {
     method: "PUT",
     headers: { "Content-Type": "application/json" },
-    credentials: "include",
     body: JSON.stringify({ stock: stock - 1 })
   });
 
   cargarProductos();
 });
 
+// =========================
+// ACTUALIZAR PRODUCTO
+// =========================
 document.getElementById("formActualizar")?.addEventListener("submit", async (e) => {
   e.preventDefault();
 
-    
+  if (!isAdmin && !isSuperAdmin) return;
+
   await fetch(`${API}/productos/${idActualizar.value}`, {
     method: "PUT",
     headers: { "Content-Type": "application/json" },
-    credentials: "include",
     body: JSON.stringify({
       nombre: nombreActualizar.value,
-      precio: Number(precioActualizar.value)
+      precio: Number(precioActualizar.value),
+      stock: Number(stockActualizar.value)
     })
   });
 
