@@ -1,12 +1,18 @@
 const API = "http://localhost:3000";
 
+
 const user = JSON.parse(localStorage.getItem("user"));
 
-if (!user || (user.rol !== "admin" && user.rol !== "superadmin")) {
-  window.location.href = "/login.html";
+if (!user) {
+  window.location.href = "./login.html";
 }
 
+const isAdmin = user.rol === "admin";
+const isSuperAdmin = user.rol === "superadmin";
+const isCliente = user.rol === "cliente";
+
 const token = localStorage.getItem("token");
+
 
 /* =========================
    LOGOUT
@@ -21,38 +27,58 @@ function logout() {
 /* =========================
    CARGAR PRODUCTOS
 ========================= */
+let productosGlobal = [];
+
 async function cargarProductos() {
   try {
     const res = await fetch(`${API}/productos`);
-    const productos = await res.json();
+    const data = await res.json();
+
+    console.log("Productos:", data);
+
+    productosGlobal = data;
 
     const lista = document.getElementById("listaProductos");
 
-    lista.innerHTML = productos.map(producto => `
-      <div class="card">
+    if (!lista) {
+      console.error("No existe #listaProductos");
+      return;
+    }
 
-        <div class="card-body">
-          <h3>${producto.nombre}</h3>
-
-          <p>Precio: $${producto.precio}</p>
-          <p>Stock: ${producto.stock}</p>
-          <p>ID: ${producto.id}</p>
-
-          <div class="admin-actions">
-
-            <button class="btn-delete" onclick="eliminarProducto(${producto.id})">
-              Eliminar
-            </button>
-
+    lista.innerHTML = data
+      .map(
+        (p) => `
+          <div class="card" data-id="${p.id}">
+            <img src="${p.imagen || "https://placehold.co/400x250?text=Gamer"}">
+            <div class="card-body">
+              <h3>${p.nombre}</h3>
+              <p>$${p.precio}</p>
+              <p>Stock: ${p.stock}</p>
+            </div>
           </div>
-        </div>
+        `
+      )
+      .join("");
 
-      </div>
-    `).join("");
+    document.querySelectorAll(".card").forEach((card) => {
+      card.addEventListener("click", () => {
+        const id = card.dataset.id;
+
+        const p = productosGlobal.find(prod => prod.id == id);
+
+        console.log("Click en:", p);
+
+        if (!p) return;
+
+        document.getElementById("idActualizar").value = p.id;
+        document.getElementById("nombreActualizar").value = p.nombre;
+        document.getElementById("precioActualizar").value = p.precio;
+        document.getElementById("stockActualizar").value = p.stock;
+      });
+    });
 
   } catch (error) {
-    console.log(error);
-    alert("Error al cargar productos");
+    console.error("Error cargando productos:", error);
   }
 }
 
@@ -107,28 +133,83 @@ async function crearProducto() {
 /* =========================
    ELIMINAR PRODUCTO
 ========================= */
-async function eliminarProducto(id) {
+document.getElementById("btnEliminar")?.addEventListener("click", async () => {
+  const id = document.getElementById("idActualizar").value;
+  const token = localStorage.getItem("token");
 
-  const confirmDelete = confirm("¿Seguro que querés eliminar este producto?");
+  if (!id) {
+    alert("Selecciona un producto primero");
+    return;
+  }
 
-  if (!confirmDelete) return;
+  const confirmar = confirm("¿Seguro que querés eliminar este producto?");
+  if (!confirmar) return;
 
   const res = await fetch(`${API}/productos/${id}`, {
     method: "DELETE",
     headers: {
-      Authorization: `Bearer ${token}`
+      "Authorization": `Bearer ${token}`
     }
   });
 
-  if (res.ok) {
-    alert("Producto eliminado");
-    cargarProductos();
-  } else {
-    alert("Error al eliminar");
-  }
-}
+  const data = await res.json();
+  console.log("DELETE:", data);
 
+  if (!res.ok) {
+    alert("Error al eliminar");
+    return;
+  }
+
+  cargarProductos();
+  alert("Producto eliminado ✔");
+
+  document.getElementById("idActualizar").value = "";
+  document.getElementById("nombreActualizar").value = "";
+  document.getElementById("precioActualizar").value = "";
+  document.getElementById("stockActualizar").value = "";
+});
 /* =========================
    INIT
 ========================= */
 cargarProductos();
+
+/* =========================
+    ACTUALIZAR PRODUCTO
+========================= */
+
+document.getElementById("formActualizar")?.addEventListener("submit", async (e) => {
+  e.preventDefault();
+
+  const token = localStorage.getItem("token");
+
+  const id = document.getElementById("idActualizar").value;
+
+  console.log("ID UPDATE:", id);
+
+  const res = await fetch(`${API}/productos/${id}`, {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+      "Authorization": `Bearer ${token}`
+    },
+    body: JSON.stringify({
+      nombre: document.getElementById("nombreActualizar").value,
+      precio: Number(document.getElementById("precioActualizar").value),
+      stock: Number(document.getElementById("stockActualizar").value),
+    }),
+  });
+
+  const data = await res.json();
+
+  console.log("RESPUESTA BACKEND:", data);
+
+  if (!res.ok) {
+    alert("Error al actualizar producto");
+    return;
+  }
+
+  cargarProductos();
+
+  alert("Producto actualizado ✔");
+});
+

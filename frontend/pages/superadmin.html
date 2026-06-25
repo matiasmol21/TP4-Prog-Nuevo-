@@ -2,13 +2,15 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <title>SuperAdmin | GameStore</title>
+  <title>SuperAdmin | ProgaMATE</title>
+  <meta name="description" content="Tienda de periféricos gamers y más" />
+  <link rel="icon" href="../src/assets/favicon.ico" />
   <link rel="stylesheet" href="../src/style.css">
 </head>
 <body>
 
 <header class="header">
-  <h1>GameStore SuperAdmin</h1>
+  <h1>ProgaMATE - SuperAdmin</h1>
   <button class="logout" onclick="logout()">
     Cerrar sesión
   </button>
@@ -38,6 +40,23 @@
     </table>
 
   </div>
+  
+    <form id="formUsuario">
+      <h2>Crear usuario</h2>
+
+      <input id="usuario" placeholder="Usuario">
+
+      <input id="password" type="password" placeholder="Contraseña">
+
+      <select id="rol">
+        <option value="cliente">Cliente</option>
+        <option value="admin">Admin</option>
+        <option value="superadmin">SuperAdmin</option>
+      </select>
+
+      <button type="submit">Crear</button>
+      </form>
+
 
 </div>
 

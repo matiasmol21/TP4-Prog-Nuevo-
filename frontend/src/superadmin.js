@@ -97,4 +97,34 @@ async function eliminarUsuario(id) {
   }
 }
 
+  document.getElementById("formUsuario")?.addEventListener("submit", async (e) => {
+    e.preventDefault();
+
+    const token = localStorage.getItem("token");
+
+    const res = await fetch(`${API}/users`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${token}`
+      },
+      body: JSON.stringify({
+        usuario: usuario.value,
+        password: password.value,
+        rol: rol.value
+      })
+    });
+
+    const data = await res.json();
+    console.log(data);
+
+    if (!res.ok) {
+      alert("Error al crear usuario");
+      return;
+    }
+
+    alert("Usuario creado ✔");
+    cargarUsuarios();
+  });
+
 cargarUsuarios();

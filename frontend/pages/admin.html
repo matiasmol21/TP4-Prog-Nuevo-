@@ -3,8 +3,9 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Admin | GamerStore</title>
-
+  <title>Admin | ProgaMATE</title>
+  <meta name="description" content="Tienda de periféricos gamers y más" />
+  <link rel="icon" href="../src/assets/favicon.ico" />
   <link rel="stylesheet" href="../src/style.css">
 </head>
 
@@ -14,7 +15,7 @@
   <header class="header">
 
     <div class="logo">
-      <h1>GamerStore Admin</h1>
+      <h1>ProgaMATE - Admin</h1>
     </div>
 
     <button class="logout" onclick="logout()">
@@ -59,22 +60,24 @@
       </div>
 
       <!-- ACTUALIZAR -->
-      <div class="form-card">
+      <div>
 
-        <h2>Actualizar producto</h2>
+      <form id="formActualizar">
+      <h2>Actualizar producto</h2>
 
-        <input type="number" id="idActualizar" placeholder="ID Producto">
+      <input id="idActualizar" type="hidden">
 
-        <input type="text" id="nombreActualizar" placeholder="Nombre">
+      <input id="nombreActualizar" placeholder="Nombre">
+      <input id="precioActualizar" type="number" placeholder="Precio">
+      <input id="stockActualizar" type="number" placeholder="Stock">
 
-        <input type="number" id="precioActualizar" placeholder="Precio">
+      <div class="form-buttons">
+        <button type="submit">Guardar cambios</button>
+        <button type="button" id="btnEliminar">Eliminar</button>
+      </div>
+      
 
-        <input type="number" id="stockActualizar" placeholder="Stock">
-
-        <button onclick="actualizarProducto()">
-          Actualizar Producto
-        </button>
-
+      </form>
       </div>
 
     </section>

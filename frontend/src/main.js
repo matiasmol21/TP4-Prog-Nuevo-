@@ -4,21 +4,12 @@ const API = "http://localhost:3000";
 
 const user = JSON.parse(localStorage.getItem("user"));
 
-if (!user) {
-  window.location.href = "/login.html";
-}
-
 const isAdmin = user.rol === "admin";
 const isSuperAdmin = user.rol === "superadmin";
 const isCliente = user.rol === "cliente";
 
-document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener("DOMContentLoaded", () => { 
   cargarProductos();
-
-  if (isCliente) {
-    document.getElementById("formAgregar")?.style.display = "none";
-    document.getElementById("formActualizar")?.style.display = "none";
-  }
 });
 
 // =========================
@@ -27,25 +18,42 @@ document.addEventListener("DOMContentLoaded", () => {
 async function cargarProductos() {
   try {
     const res = await fetch(`${API}/productos`);
+
+    console.log("Status:", res.status);
+
     const data = await res.json();
 
-    document.getElementById("listaProductos").innerHTML = data
+    console.log("Productos:", data);
+    console.log("Es array:", Array.isArray(data));
+
+    const lista = document.getElementById("listaProductos");
+
+    if (!lista) {
+      console.error("No existe el elemento #listaProductos");
+      return;
+    }
+
+    if (!Array.isArray(data)) {
+      console.error("La API no devolvió un array:", data);
+      return;
+    }
+
+    lista.innerHTML = data
       .map(
         (p) => `
-        <div class="card" data-id="${p.id}">
-          <img src="${p.imagen || "https://placehold.co/400x250?text=Gamer"}">
-          <div class="card-body">
-            <h3>${p.nombre}</h3>
-            <p class="precio">$${p.precio}</p>
-            <p>📦 ${p.stock}</p>
-            <p>🎮 ${p.category?.nombre || "Sin categoría"}</p>
+          <div class="card" data-id="${p.id}">
+            <img src="${p.imagen || "https://placehold.co/400x250?text=Gamer"}" alt="${p.nombre}">
+            <div class="card-body">
+              <h3>${p.nombre}</h3>
+              <p class="precio">$${p.precio}</p>
+              <p>📦 Stock: ${p.stock}</p>
+              <p>🎮 ${p.category?.nombre || "Sin categoría"}</p>
+            </div>
           </div>
-        </div>
-      `
+        `
       )
       .join("");
 
-    // click para editar (solo admin)
     if (isAdmin || isSuperAdmin) {
       document.querySelectorAll(".card").forEach((card, index) => {
         card.addEventListener("click", () => {
@@ -58,9 +66,8 @@ async function cargarProductos() {
         });
       });
     }
-
-  } catch (e) {
-    console.log(e);
+  } catch (error) {
+    console.error("Error cargando productos:", error);
   }
 }
 

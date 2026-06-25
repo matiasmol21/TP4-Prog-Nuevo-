@@ -85,17 +85,17 @@ const actualizarProducto = async (req, res) => {
     const producto = await prisma.product.update({
       where: { id: Number(id) },
       data: {
-        ...req.body,
-        categoryId: req.body.categoryId
-          ? Number(req.body.categoryId)
-          : undefined,
-      },
+        nombre: req.body.nombre,
+        precio: Number(req.body.precio),
+        stock: Number(req.body.stock)
+      }
     });
 
     res.json(producto);
+
   } catch (error) {
-    console.log(error);
-    res.status(500).json({ error: "Error al actualizar producto" });
+    console.log("ERROR ACTUALIZAR:", error);
+    res.status(500).json({ error: error.message });
   }
 };
 
