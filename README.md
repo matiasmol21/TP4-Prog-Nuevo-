@@ -1,6 +1,6 @@
-# 🎮 GamerStore - Proyecto Full Stack
+# 🎮 PrograMATE - Proyecto Full Stack
 
-GamerStore es una aplicación web tipo tienda online de productos gamer (mouses, teclados, auriculares), desarrollada como proyecto académico. Permite gestionar productos con operaciones CRUD, autenticación básica y conexión a base de datos MySQL usando Prisma.
+PrograMATE es una aplicación web tipo tienda online de productos gamer (mouses, teclados, auriculares), desarrollada como proyecto académico. Permite gestionar productos con operaciones CRUD, autenticación básica y conexión a base de datos MySQL usando Prisma.
 
 ---
 
